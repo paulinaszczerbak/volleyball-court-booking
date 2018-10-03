@@ -9,8 +9,8 @@
    - Preview on user's account,
       - personal data,
       - user's all reservations.
-   4. Resetting password,
-   5. Logging out.
+   - Resetting password,
+   - Logging out.
 
 - Logging in as admin.
    - Sending invitations to register.
