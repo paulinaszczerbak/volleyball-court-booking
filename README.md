@@ -9,9 +9,6 @@ It's based on React and Redux technologies.
 
 ----
 
-## Getting started
-### Prerequisites
-
 ## App’s objectives
 - Logging in as user,
    - Booking volleyball court,
@@ -58,3 +55,20 @@ It's based on React and Redux technologies.
    - **Common elements**:
      - **topbar** containing navigation to dashboard, user account and log out button
      
+
+## Technologies:
+### Development:
+    - HTML5/SASS,
+    - React.js,
+        * material-ui
+        * react-redux
+        * react-router
+    - Bootstrap4,
+    - EsLint,
+    - Webpack,
+    - Babel,
+    - Node.js/Express.
+
+### Testing:
+    - Mocha.js
+
