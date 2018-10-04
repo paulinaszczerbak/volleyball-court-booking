@@ -63,7 +63,6 @@ It's based on React and Redux technologies.
         * material-ui
         * react-redux
         * react-router
-    - Bootstrap4,
     - EsLint,
     - Webpack,
     - Babel,
