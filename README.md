@@ -69,5 +69,6 @@ It's based on React and Redux technologies.
     - Node.js/Express.
 
 ### Testing:
-    - Mocha.js
+    - Jest
+    - react-testing-library
 

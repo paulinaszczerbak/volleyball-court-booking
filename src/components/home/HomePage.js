@@ -5,7 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Calendar from '../calendar/Calendar';
-import Footer from '../common/Footer';
 
 //styles will be moved to external file 
 const styles = theme => ({
@@ -19,52 +18,17 @@ const styles = theme => ({
       marginRight: 'auto',
     },
   },
-  toolbarMain: {
-    borderBottom: `1px solid ${theme.palette.grey[300]}`,
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  toolbarSecondary: {
-    justifyContent: 'space-between',
-  },
   mainFeaturedPost: {
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
     marginBottom: theme.spacing.unit * 4,
   },
-  mainFeaturedPostContent: {
-    padding: `${theme.spacing.unit * 6}px`,
-    [theme.breakpoints.up('md')]: {
-      paddingRight: 0,
-    },
-  },
-  mainGrid: {
-    marginTop: theme.spacing.unit * 3,
-  },
-  card: {
-    display: 'flex',
-  },
-  cardDetails: {
-    flex: 1,
-  },
-  cardMedia: {
-    width: 160,
-  },
-  markdown: {
-    padding: `${theme.spacing.unit * 3}px 0`,
-  },
-  sidebarAboutBox: {
-    padding: theme.spacing.unit * 2,
-    backgroundColor: theme.palette.grey[200],
-  },
-  sidebarSection: {
-    marginTop: theme.spacing.unit * 3,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
+  paper: {
     marginTop: theme.spacing.unit * 8,
-    padding: `${theme.spacing.unit * 6}px 0`,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
 });
 
@@ -72,29 +36,19 @@ const HomePage = (props) => {
   const { classes } = props;
 
   return (
-    <React.Fragment>
-      <CssBaseline />
       <div className={classes.layout}>
-        
+        <CssBaseline />
         <main>
-          {/* Main featured post */}
           <Paper className={classes.mainFeaturedPost}>
-            <Grid container>
-              <Grid item md={6}>
-                <div className={classes.mainFeaturedPostContent}>
+            <Grid container className={classes.paper}>
+              <Grid item md={10} justify='center'>
+                dupa
                   <Calendar/>
-                </div>
               </Grid>
             </Grid>
           </Paper>
-          {/* End main featured post */}
-          
         </main>
       </div>
-      {/* Footer */}
-      <Footer/>
-      {/* End footer */}
-    </React.Fragment>
   );
 }
 

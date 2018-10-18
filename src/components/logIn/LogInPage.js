@@ -12,7 +12,11 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 
+
+//styles will be moved to external file 
 const styles = theme => ({
   layout: {
     width: 'auto',
@@ -45,19 +49,18 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
+const LogInPage = (props) => {
   const { classes } = props;
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
+      <Grid item className={classes.layout}>
+        <CssBaseline />
         <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
+          <Avatar>
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
@@ -83,18 +86,31 @@ function SignIn(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
+              component={Link}
+              to='/home'
+              onClick={props.logInClicked}
             >
-              Sign in
+              Log in
             </Button>
+          
           </form>
         </Paper>
-      </main>
-    </React.Fragment>
+      </Grid>
   );
 }
 
-SignIn.propTypes = {
+
+LogInPage.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+// const mapStateToProps = state => ({
+//   ...state
+// });
+
+// const mapDispatchToProps = dispatch => ({
+// });
+
+
+export default withStyles(styles)(LogInPage);
+// export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);
