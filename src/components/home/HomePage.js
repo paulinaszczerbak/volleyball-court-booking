@@ -5,6 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Calendar from '../calendar/Calendar';
+// import Calendar from 'rc-calendar';
+
 
 //styles will be moved to external file 
 const styles = theme => ({
@@ -19,9 +21,10 @@ const styles = theme => ({
     },
   },
   mainFeaturedPost: {
-    backgroundColor: theme.palette.grey[800],
-    color: theme.palette.common.white,
-    marginBottom: theme.spacing.unit * 4,
+    // backgroundColor: theme.palette.grey[800],
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.grey[800],
+    margin: theme.spacing.unit * 4,
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
@@ -40,12 +43,9 @@ const HomePage = (props) => {
         <CssBaseline />
         <main>
           <Paper className={classes.mainFeaturedPost}>
-            <Grid container className={classes.paper}>
-              <Grid item md={10} justify='center'>
-                dupa
+              {/* <Grid container justify='center'> */}
                   <Calendar/>
-              </Grid>
-            </Grid>
+              {/* </Grid> */}
           </Paper>
         </main>
       </div>
