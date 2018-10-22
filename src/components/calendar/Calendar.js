@@ -17,12 +17,17 @@ const styles = theme => ({
         // borderLeft: '10px solid transparent',
         // borderImage: 'linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%)',
         // borderImageSlice: 1,
-        backgroundColor: '#d4e3fc'
+        backgroundColor: '#0053d8',
+        color: 'white'
       },
     disabled: {
         color: '#c2c9d3',
         pointerEvents: 'none'
-      }
+      },
+    daysFromPast: {
+        backgroundColor: '#ccdfff',
+        pointerEvents: 'none'
+    }
 })
 
 class Calendar extends Component {
@@ -95,6 +100,10 @@ class Calendar extends Component {
               if(!dateFns.isSameMonth(day, monthStart) || dateFns.isBefore(currentMonth, dateFns.startOfToday() ) ){  
                 className += classes.disabled;
               }
+              // disable current month days from the past
+              else if(dateFns.isBefore(day, dateFns.startOfToday())){
+                className += classes.daysFromPast;
+              }
               // change selected day color
               else if(dateFns.isSameDay(day, selectedDate)){
                     className += classes.selected;
@@ -125,6 +134,7 @@ class Calendar extends Component {
         this.setState({
             selectedDate: day
         })
+
     };
     nextMonth = () => {
         this.setState({
