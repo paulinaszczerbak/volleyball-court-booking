@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import dateFns from 'date-fns';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
+import BookingDialog from '../calendar/BookingDialog'
 
 const styles = theme => ({
     cell:{
         cursor: 'pointer',
-        textAlign: 'center'
+        textAlign: 'center',
+        height: '100px',
+        fontSize: '50px'
     },
     selected: {
         // borderLeft: '10px solid transparent',
@@ -25,15 +28,24 @@ const styles = theme => ({
         pointerEvents: 'none'
       },
     daysFromPast: {
-        backgroundColor: '#ccdfff',
-        pointerEvents: 'none'
-    }
+        backgroundColor: '#e1e7f2',
+        pointerEvents: 'none',
+        color: '#9ea2a8'
+    },
+    textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+    },
 })
 
 class Calendar extends Component {
     state = {
         currentMonth: new Date(),
-        selectedDate: new Date()
+        selectedDate: new Date(),
+        openDialog: false,
+        reservationStart: "",
+        reservationEnd: ""
     };
 
     renderHeader(){
@@ -112,6 +124,7 @@ class Calendar extends Component {
                 <Grid item xs key={day}>
                     <Paper className={className}
                 onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
+                // onClick={this.handleClickOpen}
                 >
                         {formattedDate}    
                     </Paper>
@@ -132,26 +145,37 @@ class Calendar extends Component {
 
     onDateClick = day => {
         this.setState({
-            selectedDate: day
+            selectedDate: day,
+            openDialog: true
         })
-
+        
     };
+
     nextMonth = () => {
         this.setState({
             currentMonth: dateFns.addMonths(this.state.currentMonth, 1)
         });
     };
+
     prevMonth = () => {
         this.setState({
             currentMonth: dateFns.subMonths(this.state.currentMonth, 1)
         });
     };
-
-
+    
+    handleClose = value => {
+    this.setState({  openDialog: false });
+    };
+      
     render(){
         const {classes} = this.props;
         return(
             <Grid container >
+            <BookingDialog
+            open={this.state.openDialog}
+            onClose={this.handleClose}
+            />
+            
                 {this.renderHeader(classes)}
                 {this.renderDays(classes)}
                 {this.renderCells(classes)}
