@@ -46,9 +46,7 @@ class Calendar extends Component {
     state = {
         currentMonth: new Date(),
         selectedDate: new Date(),
-        openDialog: false,
-        reservationStart: "",
-        reservationEnd: ""
+        openDialog: false
     };
 
     renderHeader(){

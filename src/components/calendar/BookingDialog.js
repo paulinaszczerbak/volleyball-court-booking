@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -13,6 +14,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import dateFns from 'date-fns';
+import {simpleAction} from '../../actions/simpleAction'
 
 
 const styles = {
@@ -23,7 +26,7 @@ const styles = {
 
 class BookingDialog extends Component {
   state={
-   startTime:"",
+   startDate: "",
    duration:"" 
   }
 
@@ -33,18 +36,20 @@ class BookingDialog extends Component {
 
     handleChangeStart = (time) => {
       this.setState({
-        startTime: time,
+        // startTime: time,
+        startDate: dateFns.format(time, 'YYYYMMDD HHmm')
     })
   };
 
-  handleChangeEnd = (time) => {
+  handleChangeDuration = (time) => {
     this.setState({
-      endTime: time,
+      duration: time,
   })
 };
 
 handleChange = event => {
-  this.setState({ value: event.target.value });
+  this.setState({ value: event.target.value,
+  duration: event.target.value });
 };
   
     render() {
@@ -63,6 +68,7 @@ handleChange = event => {
                   onChange={(time) => this.handleChangeStart(time)}
                   // value={this.state.startTime}
                   />
+                  {console.log(this.state.startDate)}
                 </Grid>
                 <Grid item xs>
                   <br/>
@@ -84,8 +90,10 @@ handleChange = event => {
                 </Grid>
               </Grid>
               <Grid item xs>
-                ALL RESERVATIONS
-                <Reservations />
+                ALL RESERVATIONS<br/>
+                {/* {this.state.startTime} */}
+                {this.state.duration}
+                {/* <Reservations /> */}
               </Grid>
             </Grid>
           </DialogContent>  
@@ -100,4 +108,17 @@ handleChange = event => {
     selectedValue: PropTypes.string,
   };
 
-  export default withStyles(styles)(BookingDialog);
+  const mapStateToProps = (state) => {
+    return {
+      startDate: state.startDate,
+      duration: state.duration
+    }
+  };
+
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      handleClose: simpleAction()
+    }
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(BookingDialog));
