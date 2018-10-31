@@ -8,18 +8,18 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 import BookingDialog from '../calendar/BookingDialog'
+import Reservations from './Reservations';
+import { connect } from 'react-redux';
+
 
 const styles = theme => ({
     cell:{
         cursor: 'pointer',
         textAlign: 'center',
         height: '100px',
-        fontSize: '50px'
+        fontSize: '40px'
     },
     selected: {
-        // borderLeft: '10px solid transparent',
-        // borderImage: 'linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%)',
-        // borderImageSlice: 1,
         backgroundColor: '#0053d8',
         color: 'white'
       },
@@ -37,6 +37,9 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: 200,
     },
+    smallFont: {
+        fontSize: '10px'
+    }
 })
 
 class Calendar extends Component {
@@ -52,7 +55,7 @@ class Calendar extends Component {
         const dateFormat = "MMMM YYYY";
 
         return (
-            <Grid item container justify='space-between' className={styles.calendar} >
+            <Grid item container justify='space-between' >
                 <Grid item>
                     <IconButton onClick={this.prevMonth}>
                         <ArrowBackIos/>
@@ -90,6 +93,8 @@ class Calendar extends Component {
     }
 
     renderCells(classes){
+        const { reservations } = this.props;
+
         const { currentMonth, selectedDate } = this.state;
         const monthStart = dateFns.startOfMonth(currentMonth);
         const monthEnd = dateFns.endOfMonth(monthStart);
@@ -120,13 +125,27 @@ class Calendar extends Component {
               else if(dateFns.isSameDay(day, selectedDate)){
                     className += classes.selected;
               }
+
+              //check if exists reservation on current day
+              let isReservation=false;
+              let dayReservations = [];
+              reservations.forEach(reservation => {
+                  if (reservation["startDate"].includes(dateFns.format(day, 'YYYYMMDD'))){
+                      isReservation=true;
+                      dayReservations.push(reservation);
+                  }
+                });
               days.push(
                 <Grid item xs key={day}>
                     <Paper className={className}
-                onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
-                // onClick={this.handleClickOpen}
-                >
-                        {formattedDate}    
+                    onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
+                    // onClick={this.handleClickOpen}
+                    >
+                        {formattedDate}
+                        {
+                            isReservation ? <Reservations styles={classes.smallFont} dayReservations={dayReservations} />  : null
+                        } 
+                        
                     </Paper>
                 </Grid>
               );
@@ -184,5 +203,10 @@ class Calendar extends Component {
     }
 }
 
-export default withStyles(styles)(Calendar);
+const mapStateToProps = (state) => {
+    return { reservations: state.reservations };
+};
+
+// export default withStyles(styles)(Calendar);
+export default withStyles(styles)(connect(mapStateToProps)(Calendar));
 

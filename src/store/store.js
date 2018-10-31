@@ -6,7 +6,7 @@ import RootReducer from '../reducers/RootReducer';
 export default function configureStore(initialState){
     return createStore(
         RootReducer,
-        // initialState,
+        initialState,
         applyMiddleware(thunk)
     );
 }

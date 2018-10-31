@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
 
-const styles = {
+const styles = theme => ({
     grow: {
       flexGrow: 1,
     },
@@ -18,14 +18,14 @@ const styles = {
       marginLeft: -12,
       marginRight: 20,
     },
-  };
+  });
 
 const TopBar = (props) => {
 
   const { classes } = props;
 
     return(
-        <Grid item>
+        <Grid item className={styles.menuButton}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton className={classes.menuButton} color="inherit" aria-label="Menu"

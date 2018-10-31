@@ -6,8 +6,22 @@ import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import initialState from './reducers/initialState';
+import { createStore } from 'redux';
 
-const store = configureStore(initialState);
+
+const reducer = (state, action) => {
+    switch (action.type) {
+      case 'INCREMENT':
+        return { ...state, counter: state.counter + 1 };
+      case 'DECREMENT':
+        return { ...state, counter: state.counter - 1 };
+      default:
+        return state;
+      }
+  };
+
+// const store = configureStore(initialState);
+const store = createStore(reducer, initialState);
 
 ReactDOM.render(
     <Provider store={store}>
